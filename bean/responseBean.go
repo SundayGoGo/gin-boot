@@ -9,18 +9,7 @@
 package bean
 
 type ResponseBean struct {
-	Code int `json:"code"`
-	Msg string `json:"msg"`
+	Code int         `json:"code"`
+	Msg  string      `json:"msg"`
 	Data interface{} `json:"data"`
-}
-
-type nihao interface {
-	buhao()
-}
-type name struct {
-
-}
-
-func (receiver name)  buhao()  {
-
 }
