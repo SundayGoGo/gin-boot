@@ -9,7 +9,6 @@
 package router
 
 import (
-	"gin-web/context"
 	"gin-web/controller"
 	"gin-web/middlewares"
 
@@ -24,10 +23,10 @@ func InitRouter() {
 	apiRouter := router.Group(``)
 	apiRouter.Use(middlewares.Jwt()) //加载jwt中间件
 	// mapper 上下文
-	mapperContext := context.NewMapperContext()
+	//mapperContext := context.NewMapperContext()
 	userRouter := apiRouter.Group("/user")
 	{
-		userController := controller.NewUserController(mapperContext)
+		userController := controller.NewUserController()
 		userRouter.POST("", userController.CreateUser)
 	}
 

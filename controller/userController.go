@@ -11,7 +11,6 @@ package controller
 import (
 	"fmt"
 	"gin-web/bean"
-	"gin-web/context"
 	"gin-web/models"
 	"gin-web/services"
 	"gin-web/utils"
@@ -20,17 +19,19 @@ import (
 )
 
 type UserController struct {
-	Mac *context.MapperContext
+	userService *services.UserService
 }
 
-func NewUserController(mac *context.MapperContext) *UserController {
-	return &UserController{Mac: mac}
+func NewUserController() *UserController {
+	return &UserController{
+		userService: services.NewUserService(),
+	}
 }
 
 // 创建用户
 
 func (u *UserController) CreateUser(ctx *gin.Context) {
-	userService := services.NewUserService(u.Mac)
+	userService := u.userService
 	response := bean.ResponseBean{
 		Code: 0,
 	} // 返回结构体

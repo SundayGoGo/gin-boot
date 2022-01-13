@@ -10,8 +10,8 @@
 ### GORM
 
 > 自动创建表 手动添加model模型 使用逗号分开即可
-```golang
-	_db.AutoMigrate(&Models.User{}) // 自动创建表结构
+```
+_db.AutoMigrate(&Models.User{}) // 自动创建表结构
 ```
 
 #### 目录结构

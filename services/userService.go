@@ -17,8 +17,8 @@ type UserService struct {
 	mac *context.MapperContext
 }
 
-func NewUserService(mac *context.MapperContext) *UserService {
-	return &UserService{mac: mac}
+func NewUserService() *UserService {
+	return &UserService{mac: context.NewMapperContext()}
 }
 
 // CreateUser 创建用户
