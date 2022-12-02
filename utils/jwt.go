@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"gin-web/enums/jwtEnum"
-	Models "gin-web/models"
+	"gin-boot/enums/jwtEnum"
+	Models "gin-boot/models"
 
 	"github.com/dgrijalva/jwt-go"
 

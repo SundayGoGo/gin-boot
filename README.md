@@ -1,6 +1,8 @@
 ### Gin Web 骨架 v2
 
 
+#### 开始
+使用``go mod tiyd``下载依赖包
 
 
 #### 数据库连接
@@ -16,18 +18,51 @@ _db.AutoMigrate(&Models.User{}) // 自动创建表结构
 
 #### 目录结构
 - bean 
-- context  mapper上下文，自动注入mapper接口，统一交给service调用
-- controller  控制器handler
+- context  service上下文，自动注入服务
+- handler  控制器handler
 - databases 数据库连接器
 - enums 枚举
-- mapper 实现与数据库交互的接口
 - middlewares 中间件
 - models gorm模型
 - router 路由
-- services 业务逻辑层 调用mapper接口，实现具体业务
+- logic 业务逻辑层,实现具体业务
 - utils 工具类
 
 #### 开发规范
 
 
 #### 开发流程
+
+
+#### 交叉编译
+
+- Mac 下编译 Linux 和 Windows 64位可执行程序
+
+```cgo
+CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build main.go //Linux
+CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build main.go //windows
+```
+
+- Linux 下编译 Mac 和 Windows 64位可执行程序
+```cgo
+CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build main.go
+CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build main.go
+```
+
+- Windows 下编译 Mac 和 Linux 64位可执行程序
+```cgo
+// mac
+SET CGO_ENABLED=0
+SET GOOS=darwin
+SET GOARCH=amd64
+go build main.go
+
+// linux
+SET CGO_ENABLED=0
+SET GOOS=linux
+SET GOARCH=amd64
+go build main.go
+
+// windows
+go build main.go
+```

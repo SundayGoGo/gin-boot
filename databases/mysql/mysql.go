@@ -10,8 +10,8 @@ package mysql
 
 import (
 	"fmt"
-	"gin-web/enums/mysqlEnum"
-	"gin-web/models"
+	"gin-boot/enums/mysqlEnum"
+	"gin-boot/models"
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql" // 包装
@@ -35,9 +35,9 @@ func init() {
 		//_db.LogMode(true) // 控制台打印sql
 		_db.SingularTable(true) // 取消后缀s
 		//设置数据库连接池参数
-		_db.DB().SetMaxOpenConns(100)   //设置数据库连接池最大连接数
-		_db.DB().SetMaxIdleConns(20)    //连接池最大允许的空闲连接数，如果没有sql任务需要执行的连接数大于20，超过的连接会被连接池关闭。
-		_db.AutoMigrate(&models.User{}) // 自动创建表结构
+		_db.DB().SetMaxOpenConns(100)                     //设置数据库连接池最大连接数
+		_db.DB().SetMaxIdleConns(20)                      //连接池最大允许的空闲连接数，如果没有sql任务需要执行的连接数大于20，超过的连接会被连接池关闭。
+		_db.AutoMigrate(&models.User{}, &models.Access{}) // 自动创建表结构
 	}
 
 }

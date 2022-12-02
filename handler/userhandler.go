@@ -6,32 +6,33 @@
  * @Date: 2021/3/22 7:49 下午
  */
 
-package controller
+package handler
 
 import (
 	"fmt"
-	"gin-web/bean"
-	"gin-web/models"
-	"gin-web/services"
-	"gin-web/utils"
+	"gin-boot/bean"
+	srv "gin-boot/context"
+	"gin-boot/logic"
+	"gin-boot/models"
+	"gin-boot/utils"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
-type UserController struct {
-	userService *services.UserService
+type UserHandler struct {
+	srv *srv.ServiceContext
 }
 
-func NewUserController() *UserController {
-	return &UserController{
-		userService: services.NewUserService(),
+func NewUserHandler(srv *srv.ServiceContext) *UserHandler {
+	return &UserHandler{
+		srv: srv,
 	}
 }
 
 // 创建用户
 
-func (u *UserController) CreateUser(ctx *gin.Context) {
-	userService := u.userService
+func (u *UserHandler) CreateUser(ctx *gin.Context) {
+	userLogic := logic.NewUserLogic(u.srv)
 	response := bean.ResponseBean{
 		Code: 0,
 	} // 返回结构体
@@ -48,7 +49,7 @@ func (u *UserController) CreateUser(ctx *gin.Context) {
 		goto Error
 	} else {
 		// 首先查询username是否存在
-		user := userService.GetUserByUsername(username)
+		user := userLogic.GetUserByUsername(username)
 		if user != nil {
 			response.Code = -1
 			response.Msg = "User already exists！"
@@ -61,7 +62,7 @@ func (u *UserController) CreateUser(ctx *gin.Context) {
 		userDao.Salt = salt
 		userDao.Password = utils.MakeHashCode(fmt.Sprintf(`%s%s`, password, salt))
 		userDao.Name = name
-		newUser, err := userService.CreateUser(userDao)
+		newUser, err := userLogic.CreateUser(&userDao)
 		if err != nil {
 			return
 		}

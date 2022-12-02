@@ -9,7 +9,8 @@
 package bean
 
 type ResponseBean struct {
-	Code int         `json:"code"`
-	Msg  string      `json:"msg"`
-	Data interface{} `json:"data"`
+	Code  int         `json:"code"`
+	Total int         `json:"total"`
+	Msg   string      `json:"msg"`
+	Data  interface{} `json:"data"`
 }

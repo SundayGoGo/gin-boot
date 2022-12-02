@@ -9,8 +9,9 @@
 package router
 
 import (
-	"gin-web/controller"
-	"gin-web/middlewares"
+	"gin-boot/context"
+	"gin-boot/handler"
+	"gin-boot/middlewares"
 
 	"github.com/gin-gonic/gin"
 )
@@ -21,14 +22,22 @@ func InitRouter() {
 	router.Use(middlewares.Cors())
 
 	apiRouter := router.Group(``)
-	apiRouter.Use(middlewares.Jwt()) //加载jwt中间件
+	//apiRouter.Use(middlewares.Jwt()) //加载jwt中间件
 	// mapper 上下文
 	//mapperContext := context.NewMapperContext()
 	userRouter := apiRouter.Group("/user")
+	serviceContext := srv.NewServiceContext()
 	{
-		userController := controller.NewUserController()
-		userRouter.POST("", userController.CreateUser)
+		userHandler := handler.NewUserHandler(serviceContext)
+		userRouter.POST("", userHandler.CreateUser)
 	}
 
+	// 获取ip地址
+	accessRouter := apiRouter.Group(`/access`)
+	{
+		accessHandler := handler.NewAccessHandler(serviceContext)
+		accessRouter.GET(``, accessHandler.CreateAccess)
+		accessRouter.GET(`/list`, accessHandler.GetAccessList)
+	}
 	_ = router.Run(":9300")
 }

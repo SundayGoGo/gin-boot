@@ -9,8 +9,8 @@
 package main
 
 import (
-	"gin-web/databases/mysql"
-	"gin-web/router"
+	"gin-boot/databases/mysql"
+	"gin-boot/router"
 	"github.com/jinzhu/gorm"
 
 	"github.com/sirupsen/logrus"

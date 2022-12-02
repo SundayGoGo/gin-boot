@@ -9,8 +9,8 @@
 package middlewares
 
 import (
-	utils "gin-web/utils"
-	"gin-web/enums/jwtEnum"
+	"gin-boot/enums/jwtEnum"
+	utils "gin-boot/utils"
 	"net/http"
 	"strings"
 
