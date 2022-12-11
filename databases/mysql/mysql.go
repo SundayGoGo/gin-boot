@@ -10,7 +10,7 @@ package mysql
 
 import (
 	"fmt"
-	"gin-boot/enums/mysqlEnum"
+	"gin-boot/config"
 	"gin-boot/models"
 
 	"github.com/jinzhu/gorm"
@@ -19,10 +19,10 @@ import (
 
 var _db *gorm.DB // ‼️ *****全局变量禁止直接操作数据库，使用时需实例化临时变量操作数据库 eg: Mysql.getDB()获取db对象即可。**** ‼️
 
-func init() {
+func LoadMysql(config *config.Config) {
 
 	var err error
-	connArgs := fmt.Sprintf("%s:%s@(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local&timeout=10s", mysqlEnum.User, mysqlEnum.Password, mysqlEnum.Host, mysqlEnum.Port, mysqlEnum.DB)
+	connArgs := fmt.Sprintf("%s:%s@(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local&timeout=10s", config.Mysql.User, config.Mysql.Pwd, config.Mysql.Host, config.Mysql.Port, config.Mysql.Db)
 
 	_db, err = gorm.Open("mysql", connArgs)
 	if err != nil {

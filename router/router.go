@@ -9,6 +9,8 @@
 package router
 
 import (
+	"fmt"
+	"gin-boot/config"
 	"gin-boot/context"
 	"gin-boot/handler"
 	"gin-boot/middlewares"
@@ -16,7 +18,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func InitRouter() {
+func InitRouter(config *config.Config) {
+	//gin.SetMode(gin.ReleaseMode)
 	router := gin.Default()
 	// 要在路由组之前全局使用「跨域中间件」, 否则OPTIONS会返回404
 	router.Use(middlewares.Cors())
@@ -39,5 +42,5 @@ func InitRouter() {
 		accessRouter.GET(``, accessHandler.CreateAccess)
 		accessRouter.GET(`/list`, accessHandler.GetAccessList)
 	}
-	_ = router.Run(":9300")
+	_ = router.Run(fmt.Sprintf(`:%s`, config.Port))
 }

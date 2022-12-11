@@ -1,0 +1,10 @@
+#web
+port="9300"
+
+#mysql
+[mysql]
+host="mysql_server"
+port="3306"
+user="root"
+pwd="123"
+db="test"
